@@ -11,7 +11,7 @@ build:
   stage: build
   image: eclipse-temurin:21-jdk
   tags:
-    - saas-linux-small-amd64
+    - linux
   script:
     - chmod +x mvnw
     - ./mvnw -q -ntp clean test package
