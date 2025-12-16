@@ -254,7 +254,7 @@ jpa:
 )
 ```
 
-**Статус:** ✅ Исправлено
+**Статус:**  Исправлено
 
 ---
 
@@ -288,7 +288,7 @@ if (host != null && (host.startsWith("169.254.") || host.startsWith("10.") ||
 }
 ```
 
-**Статус:** ✅ Исправлено
+**Статус:**  Исправлено
 
 ---
 
@@ -304,7 +304,7 @@ if (host != null && (host.startsWith("169.254.") || host.startsWith("10.") ||
 1. Добавлен файл `.semgrepignore` с исключением `src/main/resources/data.sql`
 2. Добавлены комментарии `nosemgrep` в SQL файл (для дополнительной защиты)
 
-**Статус:** ✅ Подавлено
+**Статус:**  Подавлено
 
 ---
 
@@ -319,7 +319,7 @@ if (host != null && (host.startsWith("169.254.") || host.startsWith("10.") ||
 src/main/resources/templates/*.html
 ```
 
-**Статус:** ✅ Подавлено
+**Статус:**  Подавлено
 
 ---
 
@@ -377,12 +377,12 @@ src/main/resources/templates/*.html
 
 В результате анализа безопасности приложения было обнаружено и исправлено **7 категорий уязвимостей** согласно OWASP Top 10 2021:
 
-1. ✅ **A03:2021 – Injection** (SQL Injection, XXE) - 2 уязвимости
-2. ✅ **A10:2021 – Server-Side Request Forgery** (SSRF) - 2 уязвимости
-3. ✅ **A02:2021 – Cryptographic Failures** (Insecure Credential Storage) - 1 уязвимость
-4. ✅ **A01:2021 – Broken Access Control** - 1 уязвимость
-5. ✅ **A05:2021 – Security Misconfiguration** - 7 проблем конфигурации
-6. ✅ **A08:2021 – Software and Data Integrity Failures** (RCE) - 1 уязвимость
+1.  **A03:2021 – Injection** (SQL Injection, XXE) - 2 уязвимости
+2.  **A10:2021 – Server-Side Request Forgery** (SSRF) - 2 уязвимости
+3.  **A02:2021 – Cryptographic Failures** (Insecure Credential Storage) - 1 уязвимость
+4.  **A01:2021 – Broken Access Control** - 1 уязвимость
+5.  **A05:2021 – Security Misconfiguration** - 7 проблем конфигурации
+6.  **A08:2021 – Software and Data Integrity Failures** (RCE) - 1 уязвимость
 
 **Всего исправлено: 14 реальных уязвимостей**
 
@@ -416,3 +416,4 @@ src/main/resources/templates/*.html
 2. Выберите нужный workflow run
 3. Прокрутите вниз до раздела "Artifacts"
 4. Нажмите на нужный артефакт для скачивания
+5. 
