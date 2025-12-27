@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          BASE_URL="http://localhost:8081"
+          BASE_URL="http://localhost:8080"
           ENDPOINT="/api/courses/search"
 
           http_code_or_000() {
