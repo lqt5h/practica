@@ -25,21 +25,29 @@ jobs:
         run: mvn -q clean package
 
       - name: Run application
+        env:
+          SPRING_PROFILES_ACTIVE: test
         run: |
           java -jar target/*.jar &
           echo "Waiting for app to start..."
           sleep 25
-        env:
-          SPRING_PROFILES_ACTIVE: test
 
       - name: Fuzz /api/courses/search
         run: |
           set -e
 
-          BASE_URL="http://localhost:8080"
+          BASE_URL="http://localhost:8081"
           ENDPOINT="/api/courses/search"
-          MAX_REQUESTS=200
 
+          # Demo pre-check: if app isn't reachable -> curl returns 000 -> fail
+          HEALTH=$(curl -s -o /dev/null -w "%{http_code}" "${BASE_URL}/actuator/health" || echo "000")
+          echo "Health status=${HEALTH}"
+          if [[ "$HEALTH" == "000" ]]; then
+            echo "App is not reachable (curl http_code 000). Fuzzing gate works -> failing pipeline"
+            exit 1
+          fi
+
+          MAX_REQUESTS=200
           echo "Start fuzzing ${BASE_URL}${ENDPOINT} with ${MAX_REQUESTS} requests"
 
           for i in $(seq 1 $MAX_REQUESTS); do
@@ -47,10 +55,17 @@ jobs:
 
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
               -G "${BASE_URL}${ENDPOINT}" \
-              --data-urlencode "title=${PAYLOAD}")
+              --data-urlencode "title=${PAYLOAD}" || echo "000")
 
             echo "[$i] status=${STATUS}, title=${PAYLOAD}"
 
+            # Fail on connectivity issues too (demo)
+            if [[ "$STATUS" == "000" ]]; then
+              echo "Network/app error detected (000), failing pipeline"
+              exit 1
+            fi
+
+            # Original condition: fail on 5xx
             if [[ "$STATUS" =~ ^5[0-9][0-9]$ ]]; then
               echo "Server error (${STATUS}) detected during fuzzing, failing pipeline"
               exit 1
